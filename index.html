@@ -1,114 +1,685 @@
-<div class="preview-card">
-  <p class="eyebrow">Here's a preview of your destination</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportPulse - All Sports Updates</title>
 
-  <a href="#" class="brand">veroni</a>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <p class="message">
-    We couldn't retrieve information about this page, but we're reviewing the
-    link for your safety.
-  </p>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f9;
+      color: #17202a;
+    }
 
-  <div class="security-box">
-    <h3>Security check</h3>
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    }
 
-    <div class="check-row">🛡️ <span>Scanned by SmartPlay</span></div>
-    <div class="check-row">👁️ <span>Links monitored for suspicious behavior</span></div>
-    <div class="check-row green">✓ <span>No threats detected at this time</span></div>
-  </div>
+    .header-content {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-  <button class="continue-btn">Continue to destination →</button>
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
 
-  <p class="redirect">You'll be redirected in 2 seconds...</p>
-</div>
+    .logo span {
+      color: #22c55e;
+    }
 
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: #f3f1d9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    color: #243142;
-  }
+    .search {
+      width: 280px;
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
 
-  .preview-card {
-    width: 500px;
-    background: white;
-    border-radius: 18px;
-    padding: 52px 50px 48px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-  }
+    nav {
+      background: white;
+      border-bottom: 1px solid #ddd;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
 
-  .eyebrow {
-    font-size: 23px;
-    color: #4b5563;
-    margin: 0 0 20px;
-  }
+    .nav-inner {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      gap: 8px;
+      padding: 10px 5%;
+    }
 
-  .brand {
-    display: inline-block;
-    font-size: 28px;
-    font-weight: 700;
-    color: #006bd6;
-    text-decoration: underline;
-    margin-bottom: 22px;
-  }
+    .sport-btn {
+      border: 0;
+      background: #eef2f7;
+      color: #374151;
+      padding: 9px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .2s;
+    }
 
-  .message {
-    font-size: 18px;
-    line-height: 1.45;
-    color: #4b5563;
-    margin: 0 0 30px;
-  }
+    .sport-btn:hover,
+    .sport-btn.active {
+      background: #16a34a;
+      color: white;
+    }
 
-  .security-box {
-    background: #f8f9fb;
-    border-radius: 14px;
-    padding: 26px 25px;
-    margin-bottom: 30px;
-  }
+    main {
+      max-width: 1250px;
+      margin: 25px auto;
+      padding: 0 5%;
+    }
 
-  .security-box h3 {
-    margin: 0 0 22px;
-    font-size: 20px;
-    color: #111827;
-  }
+    .hero {
+      background: linear-gradient(135deg, #111827, #166534);
+      color: white;
+      border-radius: 15px;
+      padding: 35px;
+      margin-bottom: 25px;
+    }
 
-  .check-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 17px;
-    color: #374151;
-    margin: 17px 0;
-  }
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
 
-  .green {
-    color: #16a34a;
-  }
+    .hero p {
+      color: #d1fae5;
+      max-width: 650px;
+      line-height: 1.6;
+    }
 
-  .green span {
-    color: #374151;
-  }
+    .live-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
 
-  .continue-btn {
-    width: 100%;
-    height: 59px;
-    border: none;
-    border-radius: 8px;
-    background: #06457e;
-    color: white;
-    font-size: 21px;
-    font-weight: 700;
-    cursor: pointer;
-  }
+    .live-title h2 {
+      font-size: 24px;
+    }
 
-  .redirect {
-    text-align: center;
-    font-size: 17px;
-    color: #4b5563;
-    margin: 23px 0 0;
-  }
-</style>
+    .live {
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .scores {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .score-card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      border: 1px solid #e5e7eb;
+    }
+
+    .sport-label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #16a34a;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .team {
+      font-weight: 700;
+      flex: 1;
+    }
+
+    .team:last-child {
+      text-align: right;
+    }
+
+    .score {
+      font-size: 22px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+
+    .section h2 {
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    .news-card {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .news-card:last-child {
+      border-bottom: 0;
+    }
+
+    .news-image {
+      width: 125px;
+      height: 85px;
+      border-radius: 8px;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    .news-content h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .news-content p {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    .time {
+      font-size: 11px;
+      color: #16a34a;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .league {
+      padding: 13px;
+      border-radius: 8px;
+      background: #f8fafc;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .league strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .league small {
+      color: #6b7280;
+    }
+
+    .rank-list {
+      list-style: none;
+    }
+
+    .rank-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .rank-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .rank-number {
+      width: 25px;
+      color: #6b7280;
+    }
+
+    .rank-team {
+      flex: 1;
+      font-weight: 600;
+    }
+
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+
+    .refresh {
+      background: #16a34a;
+      color: white;
+      border: 0;
+      padding: 9px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .refresh:hover {
+      background: #15803d;
+    }
+
+    @media (max-width: 900px) {
+      .scores {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 25px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .scores {
+        grid-template-columns: 1fr;
+      }
+
+      .news-card {
+        align-items: flex-start;
+      }
+
+      .news-image {
+        width: 80px;
+        height: 65px;
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="logo">Sport<span>Pulse</span></div>
+
+      <input
+        type="search"
+        id="search"
+        class="search"
+        placeholder="Search sports, teams..."
+        oninput="searchContent()"
+      >
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <button class="sport-btn active" onclick="filterSport('all', this)">All Sports</button>
+      <button class="sport-btn" onclick="filterSport('football', this)">⚽ Football</button>
+      <button class="sport-btn" onclick="filterSport('cricket', this)">🏏 Cricket</button>
+      <button class="sport-btn" onclick="filterSport('basketball', this)">🏀 Basketball</button>
+      <button class="sport-btn" onclick="filterSport('tennis', this)">🎾 Tennis</button>
+      <button class="sport-btn" onclick="filterSport('baseball', this)">⚾ Baseball</button>
+      <button class="sport-btn" onclick="filterSport('hockey', this)">🏒 Hockey</button>
+      <button class="sport-btn" onclick="filterSport('motorsport', this)">🏎️ Motorsport</button>
+      <button class="sport-btn" onclick="filterSport('golf', this)">⛳ Golf</button>
+      <button class="sport-btn" onclick="filterSport('mma', this)">🥊 MMA</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <h1>All Sports. One Place.</h1>
+      <p>
+        Follow the latest scores, breaking news, fixtures,
+        results and sports updates from around the world.
+      </p>
+    </section>
+
+    <div class="live-title">
+      <h2>Live & Latest Scores</h2>
+      <button class="refresh" onclick="refreshScores()">↻ Refresh</button>
+    </div>
+
+    <section class="scores" id="scores">
+
+      <div class="score-card" data-sport="football">
+        <div class="sport-label">⚽ Football</div>
+        <div class="teams">
+          <div class="team">Manchester City</div>
+          <div class="score">2 - 1</div>
+          <div class="team">Arsenal</div>
+        </div>
+        <div class="status">LIVE · 72'</div>
+      </div>
+
+      <div class="score-card" data-sport="cricket">
+        <div class="sport-label">🏏 Cricket</div>
+        <div class="teams">
+          <div class="team">India</div>
+          <div class="score">245/6</div>
+          <div class="team">Australia</div>
+        </div>
+        <div class="status">ODI · 42.3 overs</div>
+      </div>
+
+      <div class="score-card" data-sport="basketball">
+        <div class="sport-label">🏀 Basketball</div>
+        <div class="teams">
+          <div class="team">Lakers</div>
+          <div class="score">108 - 104</div>
+          <div class="team">Celtics</div>
+        </div>
+        <div class="status">Q4 · 04:21</div>
+      </div>
+
+      <div class="score-card" data-sport="tennis">
+        <div class="sport-label">🎾 Tennis</div>
+        <div class="teams">
+          <div class="team">Player A</div>
+          <div class="score">6 - 4</div>
+          <div class="team">Player B</div>
+        </div>
+        <div class="status">Set 2 · Live</div>
+      </div>
+
+      <div class="score-card" data-sport="baseball">
+        <div class="sport-label">⚾ Baseball</div>
+        <div class="teams">
+          <div class="team">Yankees</div>
+          <div class="score">5 - 3</div>
+          <div class="team">Dodgers</div>
+        </div>
+        <div class="status">7th Inning</div>
+      </div>
+
+      <div class="score-card" data-sport="hockey">
+        <div class="sport-label">🏒 Hockey</div>
+        <div class="teams">
+          <div class="team">Rangers</div>
+          <div class="score">3 - 2</div>
+          <div class="team">Bruins</div>
+        </div>
+        <div class="status">3rd Period</div>
+      </div>
+
+    </section>
+
+    <div class="content-grid">
+
+      <div>
+
+        <section class="section">
+          <h2>📰 Latest Sports News</h2>
+
+          <div class="news-card" data-sport="football">
+            <div class="news-image">⚽</div>
+            <div class="news-content">
+              <h3>Football world prepares for another exciting round</h3>
+              <p>Teams are getting ready for important fixtures as the season continues.</p>
+              <span class="time">10 minutes ago</span>
+            </div>
+          </div>
+
+          <div class="news-card" data-sport="cricket">
+            <div class="news-image">🏏</div>
+            <div class="news-content">
+              <h3>Cricket teams battle for series advantage</h3>
+              <p>Another thrilling day of international cricket brings plenty of action.</p>
+              <span class="time">25 minutes ago</span>
+            </div>
+          </div>
+
+          <div class="news-card" data-sport="basketball">
+            <div class="news-image">🏀</div>
+            <div class="news-content">
+              <h3>Basketball stars produce another spectacular performance</h3>
+              <p>A closely fought game goes down to the final minutes.</p>
+              <span class="time">38 minutes ago</span>
+            </div>
+          </div>
+
+          <div class="news-card" data-sport="tennis">
+            <div class="news-image">🎾</div>
+            <div class="news-content">
+              <h3>Top tennis players advance to the next round</h3>
+              <p>The tournament continues with several competitive matches.</p>
+              <span class="time">1 hour ago</span>
+            </div>
+          </div>
+
+          <div class="news-card" data-sport="motorsport">
+            <div class="news-image">🏎️</div>
+            <div class="news-content">
+              <h3>Motorsport teams prepare for race weekend</h3>
+              <p>Drivers and teams fine-tune their cars ahead of the next race.</p>
+              <span class="time">2 hours ago</span>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+      <aside>
+
+        <section class="section">
+          <h2>🏆 Popular Competitions</h2>
+
+          <div class="league">
+            <div>
+              <strong>Premier League</strong>
+              <small>Football</small>
+            </div>
+            <span>⚽</span>
+          </div>
+
+          <div class="league">
+            <div>
+              <strong>Champions League</strong>
+              <small>Football</small>
+            </div>
+            <span>🏆</span>
+          </div>
+
+          <div class="league">
+            <div>
+              <strong>International Cricket</strong>
+              <small>Cricket</small>
+            </div>
+            <span>🏏</span>
+          </div>
+
+          <div class="league">
+            <div>
+              <strong>NBA</strong>
+              <small>Basketball</small>
+            </div>
+            <span>🏀</span>
+          </div>
+
+          <div class="league">
+            <div>
+              <strong>Grand Slam Tennis</strong>
+              <small>Tennis</small>
+            </div>
+            <span>🎾</span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>📊 Top Teams</h2>
+
+          <ul class="rank-list">
+            <li>
+              <span class="rank-number">1</span>
+              <span class="rank-team">Team Alpha</span>
+              <strong>92</strong>
+            </li>
+
+            <li>
+              <span class="rank-number">2</span>
+              <span class="rank-team">Team United</span>
+              <strong>87</strong>
+            </li>
+
+            <li>
+              <span class="rank-number">3</span>
+              <span class="rank-team">Sporting Club</span>
+              <strong>84</strong>
+            </li>
+
+            <li>
+              <span class="rank-number">4</span>
+              <span class="rank-team">Champions FC</span>
+              <strong>81</strong>
+            </li>
+
+            <li>
+              <span class="rank-number">5</span>
+              <span class="rank-team">Global Stars</span>
+              <strong>78</strong>
+            </li>
+          </ul>
+        </section>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2026 SportPulse · All Sports Updates</p>
+    <p style="margin-top:8px;font-size:12px;">
+      Demo interface — connect a live sports API for real-time scores.
+    </p>
+  </footer>
+
+  <script>
+    let currentSport = "all";
+
+    function filterSport(sport, button) {
+      currentSport = sport;
+
+      document.querySelectorAll(".sport-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      document.querySelectorAll("[data-sport]").forEach(item => {
+        if (sport === "all" || item.dataset.sport === sport) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+
+    function searchContent() {
+      const query = document
+        .getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+      document.querySelectorAll(".score-card, .news-card").forEach(item => {
+        const text = item.innerText.toLowerCase();
+
+        if (!query || text.includes(query)) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+
+    function refreshScores() {
+      const button = document.querySelector(".refresh");
+
+      button.textContent = "Updating...";
+
+      setTimeout(() => {
+        button.textContent = "✓ Updated";
+
+        setTimeout(() => {
+          button.textContent = "↻ Refresh";
+        }, 1500);
+      }, 800);
+    }
+
+    // Demo automatic update
+    setInterval(() => {
+      const liveStatuses = document.querySelectorAll(".status");
+
+      liveStatuses.forEach(status => {
+        if (status.innerText.includes("LIVE")) {
+          status.style.fontWeight = "bold";
+        }
+      });
+    }, 5000);
+  </script>
+
+</body>
+</html>
